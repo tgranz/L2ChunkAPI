@@ -5,6 +5,14 @@ from database import get_site_data, get_all_sites
 app = Flask(__name__)
 
 
+@app.after_request
+def add_cors_headers(response):
+	response.headers["Access-Control-Allow-Origin"] = "*"
+	response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+	response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+	return response
+
+
 @app.route("/", methods=["GET"])
 def status():
 	"""Main health check endpoint."""
